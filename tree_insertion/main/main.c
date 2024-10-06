@@ -5,8 +5,31 @@
 
 
 int main(){
-    int array[] = {1,2,3,4,5};
-    int lenght = sizeof(array)/sizeof(array[0]);
+    FILE * file;
+    int * array;
+    int lenght = 0, i = 0;
+    // Open the file in read mode
+    file = fopen ("data/numbers.txt", "r");
+    // Check if the file was opened successfully
+    if (file == NULL) {
+        printf ("Failed to open the file.\n");
+        return 1;
+    }
+    // Scan the file row by row to obtain n
+    int counter;
+    while (fscanf(file, "%d", &counter) != EOF){
+        lenght++;
+    }
+    // Init the array
+    array = (int *)malloc( lenght*sizeof(int));
+    // Rewind ptr to file
+    rewind(file);
+    // pass address of each element to load the value
+    // at the i row to a[i]
+    i = 0;
+    while (fscanf(file , "%i", &array[i]) != EOF ){
+        i++;
+    }
     int *element;
     printf("Test stack \n");
     stack_node *my_stack = init_stack();
