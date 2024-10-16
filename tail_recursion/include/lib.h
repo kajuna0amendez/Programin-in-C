@@ -18,17 +18,19 @@ struct stack_node{
     stack_node *next;
 };
 
-struct NODE{
-    NODE *left;
-    NODE *right;
-    int value;
-};
+extern unsigned int gen_state[8];
 
-extern jmp_buf ENV;
+void initxorshift7(unsigned int *init, int sel);
+
+double xorshift7(void);
+
+void tailQS(stack_node **first_node);
+
+int* quicksort(int *array, int size);
 
 stack_node* init_stack();
 
-int push(int *array, int left, int right, stack_node **first_node);
+void push(int *array, int left, int right, stack_node **first_node);
 
 stack_node* pop(stack_node **first_node);
 
@@ -38,16 +40,6 @@ void free_stack_node(stack_node **first_node);
 
 bool isEmpty(stack_node **first_node);
 
-void iterator_middle_init(int *array, int left, int right, stack_node **first_node);
 
-void find_middle_iterator(int **element, stack_node **first_node);
-
-NODE* create_node(int value);
-
-void free_nodes(NODE **temp);
-
-void insert_node(NODE **atree, int value);
-
-void inorder_walk(NODE **atree);
 
 #endif

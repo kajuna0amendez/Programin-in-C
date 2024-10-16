@@ -13,5 +13,8 @@ make clean
 ## build main
 make build
 
+## build asm code
+make asm
+
 ## Run Main 
 ./bin/main

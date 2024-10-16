@@ -1,54 +1,15 @@
 #include "lib.h"
+#include "utest.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <setjmp.h>
 
 
 int main(){
-    FILE * file;
-    int * array;
-    int lenght = 0, i = 0;
-    // Open the file in read mode
-    file = fopen ("data/numbers.txt", "r");
-    // Check if the file was opened successfully
-    if (file == NULL) {
-        printf ("Failed to open the file.\n");
-        return 1;
-    }
-    // Scan the file row by row to obtain n
-    int counter;
-    while (fscanf(file, "%d", &counter) != EOF){
-        lenght++;
-    }
-    // Init the array
-    array = (int *)malloc( lenght*sizeof(int));
-    // Rewind ptr to file
-    rewind(file);
-    // pass address of each element to load the value
-    // at the i row to a[i]
-    i = 0;
-    while (fscanf(file , "%i", &array[i]) != EOF ){
-        i++;
-    }
+    int array[] = {1,2,3,4,5};
+    int lenght = sizeof(array)/sizeof(array[0]);
     int *element;
-    printf("Test stack \n");
-    stack_node *my_stack = init_stack();
-    for (int i = 0; i < lenght ; i++){
-        push(array, 0, i, &my_stack);
-        if (my_stack  == NULL) {
-            fprintf(stderr, "Memory allocation failed\n");
-        }
-    }
-
-    stack_node *temp = NULL;
-    for (int i = 0; i < lenght ; i++){
-        temp = pop(&my_stack);
-        if (temp!=NULL){
-            printf("left = %d right = %d\n", temp->node->left, temp->node->right);
-            free_stack_node(&temp);
-        }
-    }
-    free_stack(&my_stack);
+    test_all();
     printf("End Test stack \n");
 
     printf("Test Iterator\n");

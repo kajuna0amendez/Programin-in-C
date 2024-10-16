@@ -8,18 +8,16 @@ stack_node* init_stack(){
     return first_node;
 }
 
-int push(int *array, int left, int right, stack_node **first_node) {
-    // create node and fill it
+void push(int *array, int left, int right, stack_node **first_node) {
     stack_node *new_node = (stack_node *)malloc(sizeof(stack_node));
     new_node->node = (Segment *)malloc(sizeof(Segment));
     new_node->node->array = array;
     new_node->node->left = left;
     new_node->node->right = right;
     new_node->next = NULL;
-    // decide if first_node is empty or not
     if (new_node == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
-        return -1; //error
+        return;
     }
     if (first_node == NULL){
         *first_node = new_node;
@@ -27,31 +25,25 @@ int push(int *array, int left, int right, stack_node **first_node) {
         new_node->next = *first_node;
         *first_node = new_node;
     }
-    return 0; //everything fine
 }
 
 stack_node* pop(stack_node **first_node){
     stack_node *new_node = NULL;
-    // use the first_node info to decide
     if (*first_node!=NULL){
         new_node = *first_node;
         *first_node = (*first_node)->next;
         new_node->next = NULL;
     }
-    return new_node; //basically null if the stavk is empty
+    return new_node;
 }
 
 void free_stack(stack_node **first_node){
-    // remove all nodes in the stack using while
     while (*first_node != NULL){
         Segment *_tseg = (*first_node)->node;
-        if (_tseg != NULL){ // be sure _tseg has info and remove it
-                            // remember a structure is a contigous 
-                            // array with variable size cells
+        if (_tseg != NULL){
             free(_tseg);
             _tseg = NULL;
         }
-        // remove the stack_node
         stack_node *temp = *first_node;
         *first_node = (*first_node)->next;
         temp->next = NULL;
@@ -62,7 +54,6 @@ void free_stack(stack_node **first_node){
 
 
 void free_stack_node(stack_node **first_node){
-    // remove only one node
     Segment *_tseg = (*first_node)->node;
     if (_tseg != NULL){
         free(_tseg);
