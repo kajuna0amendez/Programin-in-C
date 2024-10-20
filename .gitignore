@@ -1,5 +1,7 @@
 # Extras
 .ipynb_checkpoints/
+.vscode
+bin/*
 
 # Prerequisites
 *.d
